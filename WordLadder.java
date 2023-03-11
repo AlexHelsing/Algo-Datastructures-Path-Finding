@@ -3,11 +3,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -67,6 +63,19 @@ public class WordLadder implements DirectedGraph<String> {
      */
     @Override
     public List<DirectedEdge<String>> outgoingEdges(String w) {
+        List<DirectedEdge<String>> edges = new LinkedList<>();
+        char[] chars = w.toCharArray();
+        for (int i = 0; i < chars.length; i++){
+            char ogChar = chars[i];
+            for (char c : alphabet){
+                chars[i] = c;
+                String targetW = new String(chars);
+                if (dictionary.contains(targetW) && !targetW.equals(w)){
+                    edges.add(new DirectedEdge<>(w, targetW, 1));
+                }
+            }
+            chars[i] = ogChar;
+        }
         /*****************
          * TODO: Task 2  *
          * Replace this. *
