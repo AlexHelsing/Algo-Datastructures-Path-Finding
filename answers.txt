@@ -2,9 +2,7 @@ Path finder
 ===========
 
 Time spent per group member:
-* TODO: TODO
-* TODO: TODO
-* TODO: TODO
+Alexander = 6h
 
 All tasks
 ---------
@@ -19,15 +17,15 @@ After completing each task, you can fill in more data here.
 
 > java RunPathFinder ucs AdjacencyGraph graphs/AdjacencyGraph/citygraph-SE.txt Lund Kiruna
 
-loop iterations: TODO
-minimal cost:    TODO
-shortest path:   TODO
+loop iterations: 5427
+minimal cost:    1826
+shortest path:   Lund --[16]-> Löddeköpinge --[69]-> Hjärnarp --[52]-> Åled --[6]-> Oskarström --[22]-> ..... --[68]-> Storuman --[71]-> Sorsele --[233]-> Jokkmokk --[93]-> Gällivare --[121]-> Kiruna
 
 > java RunPathFinder ucs NPuzzle 3 /HFG/BED/C_A/ /ABC/DEF/GH_/
 
-loop iterations: TODO
-minimal cost:    TODO
-shortest path:   TODO
+loop iterations: 483540
+minimal cost:    31
+shortest path:   /HFG/BED/C_A/ -> /HFG/BED/CA_/ -> /HFG/BE_/CAD/ -> /HF_/BEG/CAD/ -> /H_F/BEG/CAD/ -> ..... -> /AEB/D_C/GHF/ -> /A_B/DEC/GHF/ -> /AB_/DEC/GHF/ -> /ABC/DE_/GHF/ -> /ABC/DEF/GH_/
 
 > java RunPathFinder astar NPuzzle 3 /HFG/BED/C_A/ /ABC/DEF/GH_/
 
@@ -36,15 +34,15 @@ minimal cost:    TODO
 
 > java RunPathFinder ucs NPuzzle 3 /HGF/BED/C_A/ /ABC/DEF/GH_/
 
-loop iterations: TODO
-minimal cost:    TODO
-shortest path:   TODO
+loop iterations: 483841
+minimal cost:    ??
+shortest path:   Not found?? Will check if bug
 
 > java RunPathFinder ucs GridGraph graphs/GridGraph/AR0011SR.map 23:161 130:211
 
-loop iterations: TODO
-minimal cost:    TODO
-shortest path:   TODO
+loop iterations: 159327
+minimal cost:    366,4
+shortest path:   23:161 -> 23:160 -> 23:159 -> 23:158 -> 23:157 -> ..... --[1,41]-> 132:207 --[1,41]-> 131:208 -> 131:209 --[1,41]-> 130:210 -> 130:211
 
 > java RunPathFinder astar GridGraph graphs/GridGraph/AR0011SR.map 23:161 130:211
 

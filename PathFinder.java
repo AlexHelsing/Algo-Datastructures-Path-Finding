@@ -1,12 +1,6 @@
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Random;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -88,15 +82,35 @@ public class PathFinder<Node> {
      */
     public Result searchUCS(Node start, Node goal) {
         int iterations = 0;
-        Queue<PQEntry> pqueue = new PriorityQueue<>(Comparator.comparingDouble(e -> e.costToHere));
+        Queue<PQEntry> prioQueue = new PriorityQueue<>(Comparator.comparingDouble(e -> e.costToHere));
+        // We collect all the visited nodes here to avoid visiting already visited nodes. Fast as eff
+        Set<Node> visitedNodes = new HashSet<>();
+        // add pqueue entry for start with lastedge and backpointer set to null since its first entry
+        prioQueue.add(new PQEntry(start,0,null,null));
+        // while there is an entry to remove from pqueue:
+        while (prioQueue.size()> 0) {
+            // Increase counter by one everytime we remove an entry from prioQueue
+            PQEntry entry = prioQueue.remove();
+            iterations+=1;
+            // if visitedNodes does not contain the current node, add it to visitedNodes.
+            if (!visitedNodes.contains(entry.node)) {
+                visitedNodes.add(entry.node);
+                // if entry.node is goal:
+                // SUCCESS:) extract the path and return it
+                if (entry.node.equals(goal)) {
+                    return new Result(true, start, goal, entry.costToHere, extractPath(entry), iterations);
+                }
+                // Get all the outgoing edges from the current node, save them in the prioQueue. When they are all added
+                // to the prioQueue, the while loop will iterate again until there are none left (which means no goal has been found)
+                List<DirectedEdge<Node>> outgoingEdges = graph.outgoingEdges(entry.node);
+                for (int i = 0; i < outgoingEdges.size(); i++) {
+                    DirectedEdge<Node> edge = outgoingEdges.get(i);
+                    prioQueue.add(new PQEntry(edge.to(), entry.costToHere + edge.weight(), edge, entry));
+                }
 
-        /*************************************************************************************************
-         * TODO: Task 1a+c                                                                               *
-         * Replace this.                                                                                 *
-         * Note: Every time you remove a node from the priority queue, you should increment `iterations` *
-         *************************************************************************************************/
-
-        // Return this if no path is found.
+            }
+        }
+        // if the prioQueue is empty and no goal has been found, return the result where success is false.
         return new Result(false, start, goal, -1, null, iterations);
     }
 
@@ -125,12 +139,17 @@ public class PathFinder<Node> {
      */
     private List<DirectedEdge<Node>> extractPath(PQEntry entry) {
         /*****************
-         * TODO: Task 1b *
-         * Replace this. *
+         * Done: Task 1b *
+         * Change here.  *
          *****************/
-        return null;
+        ArrayList<DirectedEdge<Node>> pathFrom = new ArrayList<>();
+        // As long as backPointer which "points" backwards is not null/empty, we can build the path to goal
+        while (entry.backPointer != null){
+            pathFrom.add(0,entry.lastEdge);
+            entry = entry.backPointer;
+        }
+        return pathFrom;
     }
-
     /**
      * Entries to put in the priority queues in {@code searchUCS} and {@code searchAstar}.
      */
