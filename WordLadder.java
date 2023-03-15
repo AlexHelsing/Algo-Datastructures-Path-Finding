@@ -63,24 +63,57 @@ public class WordLadder implements DirectedGraph<String> {
      */
     @Override
     public List<DirectedEdge<String>> outgoingEdges(String w) {
+
+        //initialize new linkedlist that takes in string w  and returns directedge obj
         List<DirectedEdge<String>> edges = new LinkedList<>();
-        char[] chars = w.toCharArray();
-        for (int i = 0; i < chars.length; i++){
-            char ogChar = chars[i];
-            for (char c : alphabet){
-                chars[i] = c;
-                String targetW = new String(chars);
-                if (dictionary.contains(targetW) && !targetW.equals(w)){
-                    edges.add(new DirectedEdge<>(w, targetW, 1));
+
+        //iterate over all the chars in the input string, eg. "yes" has 3 letters to iterate over
+        for (int i = 0; i < w.length(); i++) {
+
+            //check if current iteration is the first char of the input string
+            if (i == 0) {
+
+                //start a loop over all the chars in the alphabet
+                for (Character x : alphabet) {
+
+                    //construct new wordladder by replacing the first char of w with the current
+                    //char in the alphabet
+                    String wladder = x + w.substring(i + 1);
+
+                    //check if the ladder word is in dictionary and is not equal to w
+                    if (dictionary.contains(wladder) && !wladder.equals(w)) {
+
+                        //create new directedge obj with input string w as the starting vertex
+                        //and wladder as ending vertex. then add directedge obj to linkedlist
+                        edges.add(new DirectedEdge<String>(w, wladder));
+                    }
+                }
+                //if current iteration is not first character of w
+            } else {
+
+                //start loop over all the chars in alphabet
+                for (Character c : alphabet) {
+
+                    //construct new word ladder by replacing current chars of w at index i with the current
+                    //chars of the alphabet
+                    String wladder = w.substring(0, i) + c + w.substring(i + 1);
+
+                    //check if the constructed ladder is in the dictionary and not equal to w
+                    if (dictionary.contains(wladder) && !wladder.equals(w)) {
+
+                        //create new directedge obj with input w as the starting vertex and wladder
+                        //as ending vertex. new directedge obj is added to linkedlist
+                        edges.add(new DirectedEdge<String>(w, wladder));
+                    }
                 }
             }
-            chars[i] = ogChar;
         }
         /*****************
          * TODO: Task 2  *
          * Replace this. *
          *****************/
-        return new LinkedList<>();
+        //return the linkedlist of directededge objects, which is outgoing edges from w
+        return edges;
     }
 
     /**
