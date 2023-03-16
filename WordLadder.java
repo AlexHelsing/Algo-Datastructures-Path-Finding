@@ -92,11 +92,11 @@ public class WordLadder implements DirectedGraph<String> {
             } else {
 
                 //start loop over all the chars in alphabet
-                for (Character c : alphabet) {
+                for (Character x : alphabet) {
 
                     //construct new word ladder by replacing current chars of w at index i with the current
                     //chars of the alphabet
-                    String wladder = w.substring(0, i) + c + w.substring(i + 1);
+                    String wladder = w.substring(0, i) + x + w.substring(i + 1);
 
                     //check if the constructed ladder is in the dictionary and not equal to w
                     if (dictionary.contains(wladder) && !wladder.equals(w)) {

@@ -3,6 +3,7 @@ Path finder
 
 Time spent per group member:
 Alexander = 6h
+Stefan = 7h
 
 All tasks
 ---------
