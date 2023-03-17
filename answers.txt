@@ -2,9 +2,9 @@ Path finder
 ===========
 
 Time spent per group member:
-Alexander = 6h
-Stefan = 7h
-
+Alexander = 12
+Henrik = 12
+Stefan = 11
 All tasks
 ---------
 
@@ -30,14 +30,14 @@ shortest path:   /HFG/BED/C_A/ -> /HFG/BED/CA_/ -> /HFG/BE_/CAD/ -> /HF_/BEG/CAD
 
 > java RunPathFinder astar NPuzzle 3 /HFG/BED/C_A/ /ABC/DEF/GH_/
 
-loop iterations: TODO
-minimal cost:    TODO
+loop iterations: 11013
+minimal cost:    31
 
 > java RunPathFinder ucs NPuzzle 3 /HGF/BED/C_A/ /ABC/DEF/GH_/
 
 loop iterations: 483841
 minimal cost:    ??
-shortest path:   Not found?? Will check if bug
+shortest path:   Not found?? Dont think its a bug
 
 > java RunPathFinder ucs GridGraph graphs/GridGraph/AR0011SR.map 23:161 130:211
 
@@ -47,20 +47,20 @@ shortest path:   23:161 -> 23:160 -> 23:159 -> 23:158 -> 23:157 -> ..... --[1,41
 
 > java RunPathFinder astar GridGraph graphs/GridGraph/AR0011SR.map 23:161 130:211
 
-loop iterations: TODO
-minimal cost:    TODO
+loop iterations: 95160
+minimal cost:    366,4
 
 > java RunPathFinder ucs WordLadder graphs/WordLadder/swedish-saldo.txt syster broder
 
-loop iterations: TODO
-minimal cost:    TODO
-shortest path:   TODO
+loop iterations: 71182
+minimal cost:    11
+shortest path:   syster -> sylter -> sylten -> synten -> synden -> ..... -> bauden -> bruden -> bröden -> bröder -> broder
 
 > java RunPathFinder astar WordLadder graphs/WordLadder/swedish-saldo.txt syster broder
 
-loop iterations: TODO
-minimal cost:    TODO
-shortest path:   TODO
+loop iterations: 7055
+minimal cost:    11
+shortest path:   syster -> sylter -> sylten -> synten -> synden -> ..... -> bauden -> bruden -> bröden -> bröder -> broder
 
 Task 2: Word ladder
 -------------------
@@ -68,6 +68,8 @@ Task 2: Word ladder
 **Question**
 What's the asymptotic average-case complexity of WordLadder.outgoingEdges in the alphabet size K and the length N of the given word?
 
+The code iterates over each character in the input string, which is N. It iterates through the alphabet
+in each iteration. O(N*K)? Nested loop might make it O(N*K)^2
 TODO
 
 Tasks 3 and 4: The A* algorithm, Guessing the cost
@@ -77,18 +79,85 @@ Tasks 3 and 4: The A* algorithm, Guessing the cost
 For each of the three classes GridGraph, WordLadder, and NPuzzle, what is the approximate improvement factor in the number of loop iterations by running A* instead of UCS?
 Try a number of different examples per class.
 
-- GridGraph:  TODO
-- WordLadder: TODO
-- NPuzzle:    TODO
+- GridGraph:  graphs/GridGraph/maze-100x50.txt 1:1 - 199:99
+
+                ucs: Loop iterations: 26478
+                Elapsed time: 0.048s
+
+                astar: Loop iterations: 25453
+                       Elapsed time: 0.04s
+
+                 a* = 1.04 times better
+
+                graphs/GridGraph/AR0011SR.map
+
+                ucs: Loop iterations: 159327
+                     Elapsed time: 0.086s
+
+                a*: Loop iterations: 95160
+                    Elapsed time: 0.069s
+
+                1* 1.67 times better
+
+
+
+
+
+- WordLadder: dator -> skata in saldo txt
+
+                UCS: Loop iterations: 74162
+                     Elapsed time: 0.338s
+
+              A*: Loop iterations: 307
+                  Elapsed time: 0.028s
+
+                  a* 241 times better
+
+              koppar -> skotta in saldo txt
+
+              UCS: Loop iterations: 98306
+                   Elapsed time: 0.597s
+
+              a*: Loop iterations: 9158
+                  Elapsed time: 0.152s
+
+                  a* around 11 times better
+
+
+- NPuzzle:  3 /_AB/CDE/FGH/ - /ABC/DEF/GH_/
+
+            UCS: Loop iterations: 152439
+            Elapse time: Elapsed time: 0.155s
+
+            A*: Loop iterations: 1455
+                Elapsed time: 0.022s
+
+             a* 1058 times better
+
+            /ABC/DFE/HG_/ - /ABC/DEF/GH_/
+
+            UCS: Loop iterations: 15995
+                 Elapsed time: 0.046s
+
+            a*: Loop iterations: 442
+                Elapsed time: 0.018s
+
+            a* about 36 times better
 
 **Question**
 For which of the three classes GridGraph, WordLadder, and NPuzzle, did the heuristic guessCost have the most impact?
 What do you think is the reason for this?
 
+It seems like the heuristic helped the NPuzzle most in general. The guesscost function (heuristic) will help it and find the most
+probable way. The NPuzzle uses manhattan geometry heuristic and i guess that's a good heuristic for the NPuzzle
+
 TODO
 
 **Question**
 What are the main differences between your implementations of searchAstar and searchUCS?
+
+Difference is that in a*, with the help from the heuristics/geussCost in GridGraph, NPuzzle Wordladder class,
+the estimated total cost is counted then added as an PQEntry to the priorityqueue as well.
 
 TODO
 
@@ -97,6 +166,7 @@ Appendix: general information
 
 **Question**
 Do you know of any bugs or limitations?
+Don't think so. For one NPuzzle there is no path found, but that might be the answer
 
 TODO
 
@@ -104,6 +174,9 @@ TODO
 Did you collaborate with any other students on this lab?
 If so, write with whom and in what way you collaborated.
 Also list any resources (including the web) you have used in creating your design.
+
+Received help from former CS student when totally stuck as in other labs. Used the readme a lot and the wikipedia pages
+linked in the readme to learn about euclidean and manhattan geometry/taxicab geometry
 
 TODO
 
@@ -114,5 +187,7 @@ TODO
 
 **Question**
 What is your feedback on this assignment?
+
+Cool assignment
 
 TODO

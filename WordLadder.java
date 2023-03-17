@@ -63,44 +63,33 @@ public class WordLadder implements DirectedGraph<String> {
      */
     @Override
     public List<DirectedEdge<String>> outgoingEdges(String w) {
-
-        //initialize new linkedlist that takes in string w  and returns directedge obj
+        //initialize new list that takes in string w  and returns directedge obj
         List<DirectedEdge<String>> edges = new LinkedList<>();
-
         //iterate over all the chars in the input string, eg. "yes" has 3 letters to iterate over
         for (int i = 0; i < w.length(); i++) {
-
             //check if current iteration is the first char of the input string
             if (i == 0) {
-
                 //start a loop over all the chars in the alphabet
                 for (Character x : alphabet) {
-
                     //construct new wordladder by replacing the first char of w with the current
                     //char in the alphabet
                     String wladder = x + w.substring(i + 1);
-
                     //check if the ladder word is in dictionary and is not equal to w
                     if (dictionary.contains(wladder) && !wladder.equals(w)) {
-
                         //create new directedge obj with input string w as the starting vertex
                         //and wladder as ending vertex. then add directedge obj to linkedlist
-                        edges.add(new DirectedEdge<String>(w, wladder));
+                        edges.add(new DirectedEdge<>(w, wladder));
                     }
                 }
                 //if current iteration is not first character of w
             } else {
-
                 //start loop over all the chars in alphabet
                 for (Character x : alphabet) {
-
                     //construct new word ladder by replacing current chars of w at index i with the current
                     //chars of the alphabet
                     String wladder = w.substring(0, i) + x + w.substring(i + 1);
-
                     //check if the constructed ladder is in the dictionary and not equal to w
                     if (dictionary.contains(wladder) && !wladder.equals(w)) {
-
                         //create new directedge obj with input w as the starting vertex and wladder
                         //as ending vertex. new directedge obj is added to linkedlist
                         edges.add(new DirectedEdge<String>(w, wladder));
@@ -124,13 +113,24 @@ public class WordLadder implements DirectedGraph<String> {
      */
     @Override
     public double guessCost(String w, String u) {
+        // w current word, u goal word
+        double estCost = 0;
+        // If words are same length continue
+        // if words are not same length, just return cost directly which should not impact anything really since its 0.
+        if (w.length()==u.length()){
+            // iterate over word, and for every character that is not the same, increase cost by one basically
+            for (int i = 0;i < w.length(); i++){
+                if (w.charAt(i) != u.charAt(i) ){
+                    estCost++;
+                }
+            }
+        }
+        return estCost;
         /*****************
          * TODO: Task 4  *
          * Replace this. *
          *****************/
-        return 0;
     }
-
     @Override
     public String parseNode(String w) {
         return w;

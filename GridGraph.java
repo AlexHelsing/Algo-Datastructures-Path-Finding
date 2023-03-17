@@ -128,11 +128,16 @@ public class GridGraph implements DirectedGraph<Point> {
      */
     @Override
     public double guessCost(Point p, Point q) {
+        // p current point and q is the goal point.
+        // Calculate the distance between the two points by subtracting
+        Point distanceBetween = p.subtract(q);
+        // Calculates the euclidean norm of the distance and returns the estimated cost of reaching the goal state
+        // from the current state
+        return distanceBetween.euclideanNorm();
         /*****************
          * TODO: Task 4  *
          * Replace this. *
          *****************/
-        return 0;
     }
 
     /**
