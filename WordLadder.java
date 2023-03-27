@@ -97,10 +97,6 @@ public class WordLadder implements DirectedGraph<String> {
                 }
             }
         }
-        /*****************
-         * TODO: Task 2  *
-         * Replace this. *
-         *****************/
         //return the linkedlist of directededge objects, which is outgoing edges from w
         return edges;
     }
@@ -117,7 +113,12 @@ public class WordLadder implements DirectedGraph<String> {
         double estCost = 0;
         // If words are same length continue
         // if words are not same length, just return cost directly which should not impact anything really since its 0.
-        if (w.length()==u.length()){
+
+        // Pretty verbose but is this what you meant?
+        if(w.length()!=u.length()){
+            return -1;
+        }
+        else {
             // iterate over word, and for every character that is not the same, increase cost by one basically
             for (int i = 0;i < w.length(); i++){
                 if (w.charAt(i) != u.charAt(i) ){
@@ -126,10 +127,6 @@ public class WordLadder implements DirectedGraph<String> {
             }
         }
         return estCost;
-        /*****************
-         * TODO: Task 4  *
-         * Replace this. *
-         *****************/
     }
     @Override
     public String parseNode(String w) {

@@ -25,10 +25,10 @@ public class RunPathFinder {
         if (args.length == 0)
             args = new String[] {
                 "astar",         // Algorithm = random | ucs | astar
-                "WordLadder", // Graphtype = AdjacencyGraph | WordLadder | NPuzzle | GridGraph
-                "graphs/WordLadder/swedish-saldo.txt",  // Graph
-                "dator",           // Start node
-                "skata"           // Goal node
+                "GridGraph", // Graphtype = AdjacencyGraph | WordLadder | NPuzzle | GridGraph
+                "graphs/GridGraph/AR0011SR.map",  // Graph
+                "23:161",           // Start node
+                "130:211"           // Goal node
             };
 
 

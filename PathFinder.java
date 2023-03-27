@@ -146,6 +146,11 @@ public class PathFinder<Node> {
                 List<DirectedEdge<Node>> outgoingEdges = graph.outgoingEdges(entry.node);
                 for (int i = 0; i < outgoingEdges.size(); i++) {
                     DirectedEdge<Node> edge = outgoingEdges.get(i);
+                    // Added this to check if wordladder cost returns -1 (not same word length), then it does not have to continue and ends at
+                    //  first iteration.
+                    if(graph.guessCost(edge.to(), goal) == -1){
+                        return new Result(false, start, goal, -1, null, iterations);
+                    }
                     double goalCost = entry.costToHere + edge.weight() + graph.guessCost(edge.to(), goal);
                     prioQueue.add(new PQEntry(edge.to(), entry.costToHere + edge.weight(), edge, entry, goalCost));
                 }

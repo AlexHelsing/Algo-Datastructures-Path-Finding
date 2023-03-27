@@ -69,7 +69,7 @@ Task 2: Word ladder
 What's the asymptotic average-case complexity of WordLadder.outgoingEdges in the alphabet size K and the length N of the given word?
 
 The code iterates over each character in the input string, which is N. It iterates through the alphabet
-in each iteration. O(N*K)? Nested loop might make it O(N*K)^2
+in each iteration, which is K. The complexity is only O(N*K)? (not squared as previously answered).
 TODO
 
 Tasks 3 and 4: The A* algorithm, Guessing the cost
@@ -156,7 +156,7 @@ TODO
 **Question**
 What are the main differences between your implementations of searchAstar and searchUCS?
 
-Difference is that in a*, with the help from the heuristics/geussCost in GridGraph, NPuzzle Wordladder class,
+Difference is that in a*, with the help from the heuristics/guessCost in GridGraph, NPuzzle Wordladder class,
 the estimated total cost is counted then added as an PQEntry to the priorityqueue as well.
 
 TODO
